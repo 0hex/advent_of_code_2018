@@ -1,0 +1,10 @@
+# Advent of code 2018
+
+https://adventofcode.com/2018/
+
+## Usage
+
+```shell
+$ mvn clean package
+$ java -jar target/twenty-eighteen-1.0-SNAPSHOT.jar target/classes/input.txt
+```

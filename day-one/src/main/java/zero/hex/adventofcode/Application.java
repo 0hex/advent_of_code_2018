@@ -22,12 +22,17 @@ public class Application {
 
     // Initialise the frequency analyser.
     FrequencyAnalyzer fa = new FrequencyAnalyzer(INITIAL_FREQUENCY);
+    // Analyse the frequency changes.
+    do {
+      try (InputStream is = new FileInputStream(args[0]);
+          BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+          Stream<String> frequencyDeltas = reader.lines()) {
+        // Analyse frequencies changes.
+        fa.analyze(frequencyDeltas);
+      }
+    } while (fa.getFirstRepeatedFrequency() == null);
 
-    try (InputStream is = new FileInputStream(args[0]);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        Stream<String> frequencyDeltas = reader.lines()) {
-      // Emit the result of analysing the frequencies.
-      System.out.println(fa.getResult(frequencyDeltas));
-    }
+    System.out.printf("Frequency: %d\n", fa.getFrequency());
+    System.out.printf("First repeated frequency: %d\n", fa.getFirstRepeatedFrequency());
   }
 }
